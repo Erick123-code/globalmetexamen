@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Meteorológica GlobalMet</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>API de Análisis de Datos Meteorológicos</h1>
+    
+    <div>
+        <h2>Obtener Datos</h2>
+        <button onclick="obtenerDatos()">Obtener últimos 7 días</button>
+        <button onclick="exportarDatos()">Exportar a JSON</button>
+    </div>
+    
+    <div id="resultado"></div>
+    
+    <script>
+        async function obtenerDatos() {
+            try {
+                const response = await fetch('/meteorologia/api/datos/');
+                const data = await response.json();
+                document.getElementById('resultado').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        
+        async function exportarDatos() {
+            window.open('/meteorologia/api/exportar/?formato=json');
+        }
+    </script>
+</body>
+</html>
